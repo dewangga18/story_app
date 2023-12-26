@@ -1,0 +1,98 @@
+{
+  "login": "Masuk",
+  "@login": {
+    "description": "Text login"
+  },
+  "register": "Daftar",
+  "@register": {
+    "description": "Text register"
+  },
+  "loginPage": "Halaman Masuk",
+  "@loginPage": {
+    "description": "Text login page"
+  },
+  "registerPage": "Halaman Pendaftaran",
+  "@registerPage": {
+    "description": "Text register page"
+  },
+  "email": "Email",
+  "@email": {
+    "description": "Text email"
+  },
+  "password": "Kata Sandi",
+  "@password": {
+    "description": "Text password"
+  },
+  "name": "Nama",
+  "@name": {
+    "description": "Text name"
+  },
+  "hintEmail": "Masukan email anda",
+  "@hintEmail": {
+    "description": "Hint textfield email"
+  },
+  "hintPassword": "Masukan kata sandi anda",
+  "@hintPassword": {
+    "description": "Hint textfield password"
+  },
+  "hintName": "Masukan nama anda",
+  "@hintName": {
+    "description": "Hint textfield password"
+  },
+  "passwordText": "Setidaknya terdiri dari 8 karakter",
+  "@passwordText": {
+    "description": "Text validation register"
+  },
+  "error": "Terjadi kesalahan",
+  "@error": {
+    "description": "error message"
+  },
+  "registerSuccess": "Berhasil melakukan pendaftaran",
+  "@registerSuccess": {
+    "description": "register success message"
+  }, 
+  "dashboard": "List Cerita",
+  "@dashboard": {
+    "description": "text appbar dashboard"
+  },
+  "profile": "Pengaturan Profil",
+  "@profile": {
+    "description": "text appbar profile"
+  },
+  "language": "Pengaturan Bahasa",
+  "@language": {
+    "description": "text language"
+  },
+  "id": "Bahasa Indonesia",
+  "@id": {
+    "description": "text id"
+  },
+  "en": "Bahasa Inggris",
+  "@en": {
+    "description": "text en"
+  },
+  "logout": "Keluar",
+  "@logout": {
+    "description": "text logout"
+  },
+  "empty": "Data kosong,\nUnggah ceritamu!",
+  "@empty": {
+    "description": "text data kosong"
+  },
+  "refresh": "Muat Ulang",
+  "@refresh": {
+    "description": "text refresh"
+  },
+  "createSuccess": "Berhasil menambahkan cerita",
+  "@createSuccess": {
+    "description": "text success create story"
+  },
+  "add": "Tambah Cerita",
+  "@add": {
+    "description": "text appbar tambah cerita"
+  },
+  "desc": "Tulis ceritamu disini...",
+  "@desc": {
+    "description": "hint text description"
+  }
+}
