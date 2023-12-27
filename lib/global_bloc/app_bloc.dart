@@ -35,8 +35,10 @@ class AppBloc extends Bloc<AppEvent, AppState> {
       emit(AppLocalizationsState(locale: event.locale));
     });
 
-    on<EventLogOutUser>((event, emit) {
-      UserHiveService.deleteUser();
+    on<EventLogOutUser>((event, emit) async {
+      await UserHiveService.deleteUser();
+      userData = null;
+      localeText = null;
       emit(const AppLocalizationsState(locale: null));
     });
   }

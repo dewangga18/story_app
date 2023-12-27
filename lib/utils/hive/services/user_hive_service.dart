@@ -42,8 +42,18 @@ class UserHiveService {
     box.put(userKey, user);
   }
 
-  static void deleteUser() {
-    box.delete(userKey);
-    box.delete(localeKey);
+  static Future<void> deleteUser() async {
+    await box.delete(userKey);
+    await boxLocale.delete(localeKey);
+
+    await box.clear();
+    await boxLocale.clear();
+
+    await box.deleteFromDisk();
+    await boxLocale.deleteFromDisk();
+
+    await box.close();
+    await boxLocale.close();
+
   }
 }
