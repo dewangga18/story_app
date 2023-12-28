@@ -48,12 +48,5 @@ class UserHiveService {
 
     await box.clear();
     await boxLocale.clear();
-
-    await box.deleteFromDisk();
-    await boxLocale.deleteFromDisk();
-
-    await box.close();
-    await boxLocale.close();
-
   }
 }

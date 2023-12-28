@@ -48,7 +48,7 @@ class AddStoryPage extends StatelessWidget {
               );
             }
             if (state.isSuccess) {
-              bloc.add(SetVariableFalse());
+              bloc.add(RefreshVariable());
               back();
               dashboardBloc.add(GetListDataEvent());
               showToast(

@@ -15,6 +15,8 @@ final class RemoveImageEvent extends AddStoryEvent {}
 
 final class SetVariableFalse extends AddStoryEvent {}
 
+final class RefreshVariable extends AddStoryEvent {}
+
 final class CheckEnablePostEvent extends AddStoryEvent {
   final String description;
 

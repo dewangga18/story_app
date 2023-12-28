@@ -15,7 +15,7 @@ class ProfilePage extends StatelessWidget {
   });
 
   final Function() back;
-  final Function() logout;
+  final Future Function() logout;
 
   @override
   Widget build(BuildContext context) {
@@ -35,9 +35,9 @@ class ProfilePage extends StatelessWidget {
         ),
         actions: [
           IconButton(
-            onPressed: () {
+            onPressed: () async {
+              await logout();
               bloc.add(const EventLogOutUser());
-              logout();
             },
             icon: const Icon(Icons.logout_rounded),
           ),
@@ -61,13 +61,13 @@ class ProfilePage extends StatelessWidget {
                       color: Colors.indigo,
                     ),
                     child: Text(
-                      userData!.name![0],
+                      userData?.name?[0] ?? '',
                       style: white45w600,
                     ),
                   ),
                   15.verticalSpace,
                   Text(
-                    userData!.name!,
+                    userData?.name?? '',
                     style: Theme.of(context).textTheme.bodyLarge,
                   ),
                 ],

@@ -48,7 +48,14 @@ class AddStoryBloc extends Bloc<AddStoryEvent, AddStoryState> {
     });
 
     on<SetVariableFalse>((event, emit) {
-      emit(state.copywith(isError: false));
+      emit(state.copywith(
+        isError: false,
+        isSuccess: false,
+      ));
+    });
+
+    on<RefreshVariable>((event, emit) {
+      emit(const AddStoryState());
     });
 
     on<CheckEnablePostEvent>((event, emit) {

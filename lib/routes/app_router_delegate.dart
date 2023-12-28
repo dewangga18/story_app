@@ -88,7 +88,7 @@ class AppRouterDelegate extends RouterDelegate
                 isProfile = false;
                 notifyListeners();
               },
-              logout: () {
+              logout: () async {
                 isProfile = false;
                 isDashboard = false;
                 isAuth = true;
