@@ -30,7 +30,7 @@ class ApiService {
       log(response.body, name: 'RESULT');
       return StoryResponse.fromJson(jsonDecode(response.body));
     } catch (error) {
-      return StoryResponse(error: true);
+      return const StoryResponse(error: true);
     }
   }
 
@@ -63,9 +63,9 @@ class ApiService {
       if (statusCode == 201) {
         return GeneralResponse.fromJson(jsonDecode(responseData));
       }
-      return GeneralResponse(error: true);
+      return const GeneralResponse(error: true);
     } catch (error) {
-      return GeneralResponse(error: true);
+      return const GeneralResponse(error: true);
     }
   }
 
@@ -79,7 +79,7 @@ class ApiService {
       log(response.body, name: 'RESULT');
       return GeneralResponse.fromJson(jsonDecode(response.body));
     } catch (error) {
-      return GeneralResponse(error: true);
+      return const GeneralResponse(error: true);
     }
   }
 
@@ -93,7 +93,7 @@ class ApiService {
       log(response.body, name: 'RESULT');
       return LoginResponse.fromJson(jsonDecode(response.body));
     } catch (error) {
-      return LoginResponse(error: true);
+      return const LoginResponse(error: true);
     }
   }
 }
