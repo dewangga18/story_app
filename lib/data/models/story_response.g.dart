@@ -11,8 +11,9 @@ _$StoryResponseImpl _$$StoryResponseImplFromJson(Map<String, dynamic> json) =>
       error: json['error'] as bool?,
       message: json['message'] as String?,
       listStory: (json['listStory'] as List<dynamic>?)
-          ?.map(StoryData.fromJson)
-          .toList(),
+              ?.map(StoryData.fromJson)
+              .toList() ??
+          const [],
     );
 
 Map<String, dynamic> _$$StoryResponseImplToJson(_$StoryResponseImpl instance) =>

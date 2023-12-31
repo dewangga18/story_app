@@ -10,7 +10,7 @@ import 'package:story_app/ui/pages/dashboard/views/components/item_loading.dart'
 import 'package:story_app/ui/pages/dashboard/views/components/message_dashboard_widget.dart';
 import 'package:story_app/utils/extensions/extensions.dart';
 
-class DashboardPage extends StatelessWidget {
+class DashboardPage extends StatefulWidget {
   const DashboardPage({
     super.key,
     required this.goProfile,
@@ -23,9 +23,44 @@ class DashboardPage extends StatelessWidget {
   final Function(StoryData) onData;
 
   @override
+  State<DashboardPage> createState() => _DashboardPageState();
+}
+
+class _DashboardPageState extends State<DashboardPage> {
+  late DashboardBloc bloc;
+  final ScrollController scrollController = ScrollController();
+
+  bool showScroll = true;
+
+  @override
+  void initState() {
+    super.initState();
+
+    scrollController.addListener(() {
+      if (scrollController.position.pixels >=
+              scrollController.position.maxScrollExtent &&
+          showScroll) {
+        bloc.add(LoadmoreEvent());
+      }
+    });
+  }
+
+  @override
+  void didChangeDependencies() {
+    bloc = context.read<DashboardBloc>();
+
+    super.didChangeDependencies();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    scrollController.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final local = AppLocalizations.of(context)!;
-    final bloc = context.read<DashboardBloc>();
 
     return Scaffold(
       backgroundColor: const Color(0xfff5f5f5),
@@ -37,7 +72,7 @@ class DashboardPage extends StatelessWidget {
         ),
         actions: [
           GestureDetector(
-            onTap: goProfile,
+            onTap: widget.goProfile,
             child: Container(
               padding: const EdgeInsets.all(12),
               margin: const EdgeInsets.only(right: 12),
@@ -57,7 +92,12 @@ class DashboardPage extends StatelessWidget {
       ),
       body: Column(
         children: [
-          BlocBuilder<DashboardBloc, DashboardState>(
+          BlocConsumer<DashboardBloc, DashboardState>(
+            listener: (context, state) {
+              setState(() {
+                showScroll = state.enableScrollMore;
+              });
+            },
             builder: (context, state) {
               if (state.isError) {
                 return MessageDashboardWidget(
@@ -89,10 +129,24 @@ class DashboardPage extends StatelessWidget {
               } else {
                 return Expanded(
                   child: ListView.separated(
+                    controller: scrollController,
                     padding: const EdgeInsets.symmetric(horizontal: 15),
-                    itemCount: state.list.length,
+                    itemCount: state.list.length + 1,
                     separatorBuilder: (_, i) => 15.verticalSpace,
                     itemBuilder: (_, i) {
+                      if (state.list.length == i) {
+                        if (state.enableScrollMore) {
+                          return const Center(
+                            child: Padding(
+                              padding: EdgeInsets.all(20),
+                              child: CircularProgressIndicator(),
+                            ),
+                          );
+                        }
+
+                        return const SizedBox();
+                      }
+
                       final data = state.list[i];
                       return ItemList(
                         imgUrl: data.photoUrl ?? '-',
@@ -100,7 +154,7 @@ class DashboardPage extends StatelessWidget {
                         creator: data.name ?? '',
                         date: data.createdAt,
                         onTap: () {
-                          onData(data);
+                          widget.onData(data);
                         },
                       );
                     },
@@ -113,7 +167,7 @@ class DashboardPage extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: secondaryColor,
-        onPressed: goCreate,
+        onPressed: widget.goCreate,
         child: const Icon(
           Icons.add_photo_alternate_outlined,
         ),

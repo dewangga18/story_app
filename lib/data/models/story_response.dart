@@ -6,10 +6,10 @@ part 'story_response.freezed.dart';
 
 @freezed
 class StoryResponse with _$StoryResponse{
-  const factory StoryResponse({
+  factory StoryResponse({
     bool? error,
     String? message,
-    List<StoryData>? listStory,
+    @Default([]) List<StoryData> listStory,
   }) = _StoryResponse;
 
   factory StoryResponse.fromJson(json) => _$StoryResponseFromJson(json);

@@ -20,23 +20,31 @@ class ApiService {
     };
   }
 
-  Future<StoryResponse> getStoryData() async {
+  Future<StoryResponse> getStoryData({
+    int page = 1,
+    int size = 10,
+    int location = 1,
+  }) async {
     try {
+      final url = Uri.parse(
+        '$_baseUrl/stories?page=$page&size=$size&location=$location',
+      );
+      log(url.toString(), name: 'GET');
       final response = await http.get(
-        Uri.parse('$_baseUrl/stories'),
+        url,
         headers: headers(),
       );
-      log(response.request?.url.toString() ?? '-', name: 'GET');
       log(response.body, name: 'RESULT');
       return StoryResponse.fromJson(jsonDecode(response.body));
     } catch (error) {
-      return const StoryResponse(error: true);
+      return StoryResponse(error: true);
     }
   }
 
   Future<GeneralResponse> addStoryData(AddStoryPayload data) async {
     try {
       final uri = Uri.parse('$_baseUrl/stories');
+      log(uri.toString(), name: 'POST');
       var request = http.MultipartRequest('POST', uri);
 
       final multiPartFile = http.MultipartFile.fromBytes(
@@ -57,7 +65,6 @@ class ApiService {
       final Uint8List responseList = await streamedResponse.stream.toBytes();
       final String responseData = String.fromCharCodes(responseList);
 
-      log(request.url.toString(), name: 'POST');
       log(responseData, name: 'RESULT');
 
       if (statusCode == 201) {
@@ -71,11 +78,12 @@ class ApiService {
 
   Future<GeneralResponse> doRegister(AuthPayload data) async {
     try {
+      final url = Uri.parse('$_baseUrl/register');
+      log(url.toString(), name: 'POST');
       final response = await http.post(
-        Uri.parse('$_baseUrl/register'),
+        url,
         body: data.toJson(),
       );
-      log(response.request?.url.toString() ?? '-', name: 'POST');
       log(response.body, name: 'RESULT');
       return GeneralResponse.fromJson(jsonDecode(response.body));
     } catch (error) {
@@ -85,11 +93,12 @@ class ApiService {
 
   Future<LoginResponse> doLogin(AuthPayload data) async {
     try {
+      final url = Uri.parse('$_baseUrl/login');
+      log(url.toString(), name: 'POST');
       final response = await http.post(
-        Uri.parse('$_baseUrl/login'),
+        url,
         body: data.toJson(),
       );
-      log(response.request?.url.toString() ?? '-', name: 'POST');
       log(response.body, name: 'RESULT');
       return LoginResponse.fromJson(jsonDecode(response.body));
     } catch (error) {
