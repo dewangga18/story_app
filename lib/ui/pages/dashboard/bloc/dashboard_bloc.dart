@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:story_app/data/api/api_services.dart';
-import 'package:story_app/data/models/story_response.dart';
+import 'package:story_app/data/models/story_data.dart';
 
 part 'dashboard_event.dart';
 part 'dashboard_state.dart';

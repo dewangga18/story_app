@@ -1,31 +1,17 @@
 import 'package:story_app/utils/hive/adapters/user.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-class LoginResponse {
-  bool? error;
-  String? message;
-  UserData? loginResult;
+part 'login_response.g.dart';
+part 'login_response.freezed.dart';
 
-  LoginResponse({
-    this.error,
-    this.message,
-    this.loginResult,
-  });
+@freezed
+class LoginResponse with _$LoginResponse {
+  const factory LoginResponse({
+    bool? error,
+    String? message,
+    UserData? loginResult,
+  }) = _LoginResponse;
 
-  factory LoginResponse.fromJson(Map<String, dynamic> json) {
-    return LoginResponse(
-      error: json["error"],
-      message: json["message"],
-      loginResult: json["loginResult"] == null
-          ? null
-          : UserData.fromJson(json["loginResult"]),
-    );
-  }
-
-  Map<String, dynamic> toJson() {
-    return {
-      "error": error,
-      "message": message,
-      "loginResult": loginResult?.toJson(),
-    };
-  }
+  factory LoginResponse.fromJson(json) => _$LoginResponseFromJson(json);
+  
 }

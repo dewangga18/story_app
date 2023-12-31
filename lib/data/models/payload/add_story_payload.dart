@@ -1,13 +1,15 @@
-import 'dart:typed_data';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-class AddStoryPayload {
-  String description;
-  String fileName;
-  Uint8List photo;
+part 'add_story_payload.g.dart';
+part 'add_story_payload.freezed.dart';
 
-  AddStoryPayload({
-    required this.description,
-    required this.fileName,
-    required this.photo,
-  });
+@freezed
+class AddStoryPayload with _$AddStoryPayload {
+  const factory AddStoryPayload({
+    required String description,
+    required String fileName,
+    required List<int> photo,
+  }) = _AddStoryPayload;
+
+  factory AddStoryPayload.fromJson(json) => _$AddStoryPayloadFromJson(json);
 }

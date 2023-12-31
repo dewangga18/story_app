@@ -72,7 +72,7 @@ class AddStoryBloc extends Bloc<AddStoryEvent, AddStoryState> {
         AddStoryPayload(
           description: event.description,
           fileName: state.file!.name,
-          photo: await compressImage(state.file!.path),
+          photo: (await compressImage(state.file!.path)).toList(),
         ),
       );
       if (response.error ?? false) {

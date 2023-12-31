@@ -13,8 +13,8 @@ import 'package:story_app/utils/hive/adapters/user_locale.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
-  Hive.registerAdapter(UserDataAdapter());
-  Hive.registerAdapter(UserLocaleAdapter());
+  Hive.registerAdapter(UserDataImplAdapter());
+  Hive.registerAdapter(UserLocaleImplAdapter());
   await Hive.openBox('user');
   await Hive.openBox('locale-user');
   runApp(const MyApp());

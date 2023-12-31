@@ -41,7 +41,7 @@ class ApiService {
 
       final multiPartFile = http.MultipartFile.fromBytes(
         "photo",
-        data.photo.toList(),
+        data.photo,
         filename: data.fileName,
       );
       final Map<String, String> fields = {

@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:story_app/data/models/story_response.dart';
+import 'package:story_app/data/models/story_data.dart';
 import 'package:story_app/ui/widgets/back_button.dart';
 import 'package:story_app/utils/extensions/extensions.dart';
 

@@ -6,23 +6,23 @@ part of 'user_locale.dart';
 // TypeAdapterGenerator
 // **************************************************************************
 
-class UserLocaleAdapter extends TypeAdapter<UserLocale> {
+class UserLocaleImplAdapter extends TypeAdapter<_$UserLocaleImpl> {
   @override
   final int typeId = 1;
 
   @override
-  UserLocale read(BinaryReader reader) {
+  _$UserLocaleImpl read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return UserLocale(
+    return _$UserLocaleImpl(
       locale: fields[0] as String?,
     );
   }
 
   @override
-  void write(BinaryWriter writer, UserLocale obj) {
+  void write(BinaryWriter writer, _$UserLocaleImpl obj) {
     writer
       ..writeByte(1)
       ..writeByte(0)
@@ -35,7 +35,7 @@ class UserLocaleAdapter extends TypeAdapter<UserLocale> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is UserLocaleAdapter &&
+      other is UserLocaleImplAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

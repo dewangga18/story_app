@@ -6,17 +6,17 @@ part of 'user.dart';
 // TypeAdapterGenerator
 // **************************************************************************
 
-class UserDataAdapter extends TypeAdapter<UserData> {
+class UserDataImplAdapter extends TypeAdapter<_$UserDataImpl> {
   @override
   final int typeId = 0;
 
   @override
-  UserData read(BinaryReader reader) {
+  _$UserDataImpl read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return UserData(
+    return _$UserDataImpl(
       userId: fields[0] as String?,
       name: fields[1] as String?,
       token: fields[2] as String?,
@@ -24,7 +24,7 @@ class UserDataAdapter extends TypeAdapter<UserData> {
   }
 
   @override
-  void write(BinaryWriter writer, UserData obj) {
+  void write(BinaryWriter writer, _$UserDataImpl obj) {
     writer
       ..writeByte(3)
       ..writeByte(0)
@@ -41,7 +41,25 @@ class UserDataAdapter extends TypeAdapter<UserData> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is UserDataAdapter &&
+      other is UserDataImplAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }
+
+// **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
+
+_$UserDataImpl _$$UserDataImplFromJson(Map<String, dynamic> json) =>
+    _$UserDataImpl(
+      userId: json['userId'] as String?,
+      name: json['name'] as String?,
+      token: json['token'] as String?,
+    );
+
+Map<String, dynamic> _$$UserDataImplToJson(_$UserDataImpl instance) =>
+    <String, dynamic>{
+      'userId': instance.userId,
+      'name': instance.name,
+      'token': instance.token,
+    };

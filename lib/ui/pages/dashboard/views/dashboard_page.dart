@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:story_app/data/models/story_response.dart';
+import 'package:story_app/data/models/story_data.dart';
 import 'package:story_app/global_bloc/app_bloc.dart';
 import 'package:story_app/styles/styles.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
