@@ -27,7 +27,7 @@ class DashboardPage extends StatefulWidget {
 }
 
 class _DashboardPageState extends State<DashboardPage> {
-  late DashboardBloc bloc;
+  DashboardBloc? bloc;
   final ScrollController scrollController = ScrollController();
 
   bool showScroll = true;
@@ -40,17 +40,16 @@ class _DashboardPageState extends State<DashboardPage> {
       if (scrollController.position.pixels >=
               scrollController.position.maxScrollExtent &&
           showScroll) {
-        bloc.add(LoadmoreEvent());
+        bloc?.add(LoadmoreEvent());
       }
     });
   }
 
-  @override
-  void didChangeDependencies() {
-    bloc = context.read<DashboardBloc>();
+  // @override
+  // void didChangeDependencies() {
 
-    super.didChangeDependencies();
-  }
+  //   super.didChangeDependencies();
+  // }
 
   @override
   void dispose() {
@@ -60,6 +59,7 @@ class _DashboardPageState extends State<DashboardPage> {
 
   @override
   Widget build(BuildContext context) {
+    bloc ??= context.read<DashboardBloc>();
     final local = AppLocalizations.of(context)!;
 
     return Scaffold(
@@ -98,13 +98,28 @@ class _DashboardPageState extends State<DashboardPage> {
                 showScroll = state.enableScrollMore;
               });
             },
+            listenWhen: (previous, current) {
+              return previous.enableScrollMore != current.enableScrollMore;
+            },
+            buildWhen: (previous, current) {
+              if (previous.isError != current.isError) {
+                return true;
+              }
+              if (previous.isLoading != current.isLoading) {
+                return true;
+              }
+              if (previous.list != current.list) {
+                return true;
+              }
+              return false;
+            },
             builder: (context, state) {
               if (state.isError) {
                 return MessageDashboardWidget(
                   message: local.error,
                   textButton: local.refresh,
                   onTap: () {
-                    bloc.add(GetListDataEvent());
+                    bloc?.add(GetListDataEvent());
                   },
                 );
               } else if (state.isLoading) {
@@ -123,7 +138,7 @@ class _DashboardPageState extends State<DashboardPage> {
                   message: local.empty,
                   textButton: local.refresh,
                   onTap: () {
-                    bloc.add(GetListDataEvent());
+                    bloc?.add(GetListDataEvent());
                   },
                 );
               } else {

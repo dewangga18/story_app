@@ -22,5 +22,8 @@
   "refresh": "Refresh",
   "createSuccess": "Success to add story",
   "add": "Add Story",
-  "desc": "Write your story in here..."
+  "desc": "Write your story in here...",
+  "storyLocation": "Story Location",
+  "addLocation": "Add Story Location",
+  "add": "Add"
 }

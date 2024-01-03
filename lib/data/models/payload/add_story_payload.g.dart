@@ -12,6 +12,8 @@ _$AddStoryPayloadImpl _$$AddStoryPayloadImplFromJson(
       description: json['description'] as String,
       fileName: json['fileName'] as String,
       photo: (json['photo'] as List<dynamic>).map((e) => e as int).toList(),
+      lat: (json['lat'] as num?)?.toDouble(),
+      lon: (json['lon'] as num?)?.toDouble(),
     );
 
 Map<String, dynamic> _$$AddStoryPayloadImplToJson(
@@ -20,4 +22,6 @@ Map<String, dynamic> _$$AddStoryPayloadImplToJson(
       'description': instance.description,
       'fileName': instance.fileName,
       'photo': instance.photo,
+      'lat': instance.lat,
+      'lon': instance.lon,
     };

@@ -94,5 +94,17 @@
   "desc": "Tulis ceritamu disini...",
   "@desc": {
     "description": "hint text description"
+  },
+  "storyLocation": "Lokasi Cerita",
+  "@storyLocation": {
+    "description": "text location"
+  },
+  "addLocation": "Tambah Lokasi Cerita",
+  "@addLocation": {
+    "description": "text add location"
+  },
+  "add": "Tambah",
+  "@add": {
+    "description": "text button add location"
   }
 }

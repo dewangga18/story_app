@@ -4,7 +4,8 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:story_app/data/api/api_services.dart';
-import 'package:story_app/data/models/payload/auth_payload.dart';
+import 'package:story_app/data/models/payload/login_payload.dart';
+import 'package:story_app/data/models/payload/register_payload.dart';
 import 'package:story_app/global_bloc/app_bloc.dart';
 
 part 'auth_state.dart';
@@ -73,7 +74,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         isLoading: true,
       ));
       final response = await api.doRegister(
-        AuthPayload(
+        RegisterPayload(
           name: event.name,
           email: event.email,
           password: event.password,
@@ -101,7 +102,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         isLoading: true,
       ));
       final response = await api.doLogin(
-        AuthPayload(
+        LoginPayload(
           email: event.email,
           password: event.password,
         ),

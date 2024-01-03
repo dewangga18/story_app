@@ -1,7 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:story_app/data/api/api_services.dart';
 import 'package:story_app/data/models/story_data.dart';
+import 'package:story_app/ui/pages/dashboard/views/detail_story/components/story_location.dart';
 
 part 'dashboard_event.dart';
 part 'dashboard_state.dart';
@@ -9,9 +11,9 @@ part 'dashboard_state.dart';
 class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
   DashboardBloc(ApiService api) : super(const DashboardState(list: [])) {
     on<GetListDataEvent>((event, emit) async {
-      emit(state.copywith(isLoading: true, isError: false));
+      emit(state.copywith(isLoading: true, isError: false, page: 1));
 
-      final response = await api.getStoryData();
+      final response = await api.getStoryData(page: 1);
 
       emit(state.copywith(
         isError: response.error ?? true,
@@ -46,6 +48,20 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
           page: state.page,
         ));
       }
+    });
+
+    on<ViewLocationEvent>((event, emit) {
+      showModalBottomSheet(
+        isScrollControlled: true,
+        backgroundColor: Colors.transparent,
+        context: event.context,
+        builder: (_) {
+          return StoryLocation(
+            lat: event.lat,
+            lon: event.lon,
+          );
+        },
+      );
     });
   }
 }

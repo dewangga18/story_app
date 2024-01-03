@@ -23,6 +23,8 @@ mixin _$AddStoryPayload {
   String get description => throw _privateConstructorUsedError;
   String get fileName => throw _privateConstructorUsedError;
   List<int> get photo => throw _privateConstructorUsedError;
+  double? get lat => throw _privateConstructorUsedError;
+  double? get lon => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -36,7 +38,12 @@ abstract class $AddStoryPayloadCopyWith<$Res> {
           AddStoryPayload value, $Res Function(AddStoryPayload) then) =
       _$AddStoryPayloadCopyWithImpl<$Res, AddStoryPayload>;
   @useResult
-  $Res call({String description, String fileName, List<int> photo});
+  $Res call(
+      {String description,
+      String fileName,
+      List<int> photo,
+      double? lat,
+      double? lon});
 }
 
 /// @nodoc
@@ -55,6 +62,8 @@ class _$AddStoryPayloadCopyWithImpl<$Res, $Val extends AddStoryPayload>
     Object? description = null,
     Object? fileName = null,
     Object? photo = null,
+    Object? lat = freezed,
+    Object? lon = freezed,
   }) {
     return _then(_value.copyWith(
       description: null == description
@@ -69,6 +78,14 @@ class _$AddStoryPayloadCopyWithImpl<$Res, $Val extends AddStoryPayload>
           ? _value.photo
           : photo // ignore: cast_nullable_to_non_nullable
               as List<int>,
+      lat: freezed == lat
+          ? _value.lat
+          : lat // ignore: cast_nullable_to_non_nullable
+              as double?,
+      lon: freezed == lon
+          ? _value.lon
+          : lon // ignore: cast_nullable_to_non_nullable
+              as double?,
     ) as $Val);
   }
 }
@@ -81,7 +98,12 @@ abstract class _$$AddStoryPayloadImplCopyWith<$Res>
       __$$AddStoryPayloadImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String description, String fileName, List<int> photo});
+  $Res call(
+      {String description,
+      String fileName,
+      List<int> photo,
+      double? lat,
+      double? lon});
 }
 
 /// @nodoc
@@ -98,6 +120,8 @@ class __$$AddStoryPayloadImplCopyWithImpl<$Res>
     Object? description = null,
     Object? fileName = null,
     Object? photo = null,
+    Object? lat = freezed,
+    Object? lon = freezed,
   }) {
     return _then(_$AddStoryPayloadImpl(
       description: null == description
@@ -112,6 +136,14 @@ class __$$AddStoryPayloadImplCopyWithImpl<$Res>
           ? _value._photo
           : photo // ignore: cast_nullable_to_non_nullable
               as List<int>,
+      lat: freezed == lat
+          ? _value.lat
+          : lat // ignore: cast_nullable_to_non_nullable
+              as double?,
+      lon: freezed == lon
+          ? _value.lon
+          : lon // ignore: cast_nullable_to_non_nullable
+              as double?,
     ));
   }
 }
@@ -122,7 +154,9 @@ class _$AddStoryPayloadImpl implements _AddStoryPayload {
   const _$AddStoryPayloadImpl(
       {required this.description,
       required this.fileName,
-      required final List<int> photo})
+      required final List<int> photo,
+      this.lat,
+      this.lon})
       : _photo = photo;
 
   factory _$AddStoryPayloadImpl.fromJson(Map<String, dynamic> json) =>
@@ -141,8 +175,13 @@ class _$AddStoryPayloadImpl implements _AddStoryPayload {
   }
 
   @override
+  final double? lat;
+  @override
+  final double? lon;
+
+  @override
   String toString() {
-    return 'AddStoryPayload(description: $description, fileName: $fileName, photo: $photo)';
+    return 'AddStoryPayload(description: $description, fileName: $fileName, photo: $photo, lat: $lat, lon: $lon)';
   }
 
   @override
@@ -154,13 +193,15 @@ class _$AddStoryPayloadImpl implements _AddStoryPayload {
                 other.description == description) &&
             (identical(other.fileName, fileName) ||
                 other.fileName == fileName) &&
-            const DeepCollectionEquality().equals(other._photo, _photo));
+            const DeepCollectionEquality().equals(other._photo, _photo) &&
+            (identical(other.lat, lat) || other.lat == lat) &&
+            (identical(other.lon, lon) || other.lon == lon));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, description, fileName,
-      const DeepCollectionEquality().hash(_photo));
+      const DeepCollectionEquality().hash(_photo), lat, lon);
 
   @JsonKey(ignore: true)
   @override
@@ -181,7 +222,9 @@ abstract class _AddStoryPayload implements AddStoryPayload {
   const factory _AddStoryPayload(
       {required final String description,
       required final String fileName,
-      required final List<int> photo}) = _$AddStoryPayloadImpl;
+      required final List<int> photo,
+      final double? lat,
+      final double? lon}) = _$AddStoryPayloadImpl;
 
   factory _AddStoryPayload.fromJson(Map<String, dynamic> json) =
       _$AddStoryPayloadImpl.fromJson;
@@ -192,6 +235,10 @@ abstract class _AddStoryPayload implements AddStoryPayload {
   String get fileName;
   @override
   List<int> get photo;
+  @override
+  double? get lat;
+  @override
+  double? get lon;
   @override
   @JsonKey(ignore: true)
   _$$AddStoryPayloadImplCopyWith<_$AddStoryPayloadImpl> get copyWith =>

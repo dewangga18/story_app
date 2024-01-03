@@ -3,6 +3,8 @@ import 'dart:typed_data';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:story_app/data/api/api_services.dart';
 import 'package:image/image.dart' as img;
@@ -13,16 +15,6 @@ part 'add_story_state.dart';
 
 class AddStoryBloc extends Bloc<AddStoryEvent, AddStoryState> {
   AddStoryBloc(ApiService api) : super(const AddStoryState()) {
-    bool checkEnableFunction() {
-      bool isValid = true;
-      if ((state.desc?.isEmpty ?? true) ||
-          state.file == null ||
-          state.file?.path == '') {
-        isValid = false;
-      }
-      return isValid;
-    }
-
     on<PickCameraEvent>((event, emit) async {
       final XFile? pickedFile = await ImagePicker().pickImage(
         source: ImageSource.camera,
@@ -65,14 +57,14 @@ class AddStoryBloc extends Bloc<AddStoryEvent, AddStoryState> {
     });
 
     on<DoAddStoryEvent>((event, emit) async {
-      emit(state.copywith(
-        isLoading: true,
-      ));
+      emit(state.copywith(isLoading: true));
       final response = await api.addStoryData(
         AddStoryPayload(
           description: event.description,
           fileName: state.file!.name,
           photo: (await compressImage(state.file!.path)).toList(),
+          lat: state.loc?.latitude,
+          lon: state.loc?.longitude,
         ),
       );
       if (response.error ?? false) {
@@ -87,6 +79,26 @@ class AddStoryBloc extends Bloc<AddStoryEvent, AddStoryState> {
         ));
       }
     });
+
+    on<PickLocationEvent>((event, emit) async {
+      final data = await placemarkFromCoordinates(
+        event.loc.latitude,
+        event.loc.longitude,
+      );
+      final place = data.first;
+      final text = '${place.street}, ${place.administrativeArea}';
+      emit(state.copywith(loc: event.loc, locText: text));
+    });
+  }
+
+  bool checkEnableFunction() {
+    bool isValid = true;
+    if ((state.desc?.isEmpty ?? true) ||
+        state.file == null ||
+        state.file?.path == '') {
+      isValid = false;
+    }
+    return isValid;
   }
 
   Future<Uint8List> compressImage(String fileName) async {

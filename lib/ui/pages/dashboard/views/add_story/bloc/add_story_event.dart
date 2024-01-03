@@ -28,3 +28,9 @@ final class DoAddStoryEvent extends AddStoryEvent {
 
   const DoAddStoryEvent(this.description);
 }
+
+final class PickLocationEvent extends AddStoryEvent {
+  final LatLng loc;
+
+  const PickLocationEvent(this.loc);
+}

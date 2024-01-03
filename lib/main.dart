@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:story_app/app.dart';
 import 'package:story_app/data/api/api_services.dart';
 import 'package:story_app/global_bloc/app_bloc.dart';
@@ -17,6 +18,7 @@ void main() async {
   Hive.registerAdapter(UserLocaleImplAdapter());
   await Hive.openBox('user');
   await Hive.openBox('locale-user');
+  await Permission.location.request();
   runApp(const MyApp());
 }
 

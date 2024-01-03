@@ -6,7 +6,8 @@ import 'package:http/http.dart' as http;
 import 'package:story_app/data/models/general_model.dart';
 import 'package:story_app/data/models/login_response.dart';
 import 'package:story_app/data/models/payload/add_story_payload.dart';
-import 'package:story_app/data/models/payload/auth_payload.dart';
+import 'package:story_app/data/models/payload/login_payload.dart';
+import 'package:story_app/data/models/payload/register_payload.dart';
 import 'package:story_app/data/models/story_response.dart';
 import 'package:story_app/global_bloc/app_bloc.dart';
 
@@ -54,6 +55,8 @@ class ApiService {
       );
       final Map<String, String> fields = {
         "description": data.description,
+        if (data.lat != null) "lat": '${data.lat}',
+        if (data.lon != null) "lon": '${data.lon}',
       };
 
       request.files.add(multiPartFile);
@@ -76,7 +79,7 @@ class ApiService {
     }
   }
 
-  Future<GeneralResponse> doRegister(AuthPayload data) async {
+  Future<GeneralResponse> doRegister(RegisterPayload data) async {
     try {
       final url = Uri.parse('$_baseUrl/register');
       log(url.toString(), name: 'POST');
@@ -91,7 +94,7 @@ class ApiService {
     }
   }
 
-  Future<LoginResponse> doLogin(AuthPayload data) async {
+  Future<LoginResponse> doLogin(LoginPayload data) async {
     try {
       final url = Uri.parse('$_baseUrl/login');
       log(url.toString(), name: 'POST');

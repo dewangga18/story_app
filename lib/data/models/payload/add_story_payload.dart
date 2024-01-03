@@ -9,6 +9,8 @@ class AddStoryPayload with _$AddStoryPayload {
     required String description,
     required String fileName,
     required List<int> photo,
+    double? lat,
+    double? lon,
   }) = _AddStoryPayload;
 
   factory AddStoryPayload.fromJson(json) => _$AddStoryPayloadFromJson(json);

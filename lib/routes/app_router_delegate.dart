@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:story_app/data/models/story_data.dart';
 import 'package:story_app/global_bloc/app_bloc.dart';
 import 'package:story_app/ui/pages/auth/views/auth_page.dart';
+import 'package:story_app/ui/pages/dashboard/views/add_story/add_location_page.dart';
 import 'package:story_app/ui/pages/dashboard/views/add_story/add_story_page.dart';
 import 'package:story_app/ui/pages/dashboard/views/dashboard_page.dart';
 import 'package:story_app/ui/pages/dashboard/views/detail_story/detail_story_page.dart';
@@ -17,6 +18,7 @@ class AppRouterDelegate extends RouterDelegate
   bool isProfile;
   bool isCreate;
   StoryData? selectedStory;
+  bool isLocationPicker;
 
   AppRouterDelegate()
       : _navigatorKey = GlobalKey<NavigatorState>(),
@@ -24,7 +26,8 @@ class AppRouterDelegate extends RouterDelegate
         isAuth = false,
         isDashboard = false,
         isCreate = false,
-        isProfile = false;
+        isProfile = false,
+        isLocationPicker = false;
 
   @override
   GlobalKey<NavigatorState> get navigatorKey => _navigatorKey;
@@ -115,6 +118,20 @@ class AppRouterDelegate extends RouterDelegate
                 isCreate = false;
                 notifyListeners();
               },
+              toLocationPicker: () {
+                isLocationPicker = true;
+                notifyListeners();
+              },
+            ),
+          ),
+        if (isLocationPicker)
+          MaterialPage(
+            key: const ValueKey('Location'),
+            child: AddLocationPage(
+              back: () {
+                isLocationPicker = false;
+                notifyListeners();
+              },
             ),
           ),
       ],
@@ -126,7 +143,11 @@ class AppRouterDelegate extends RouterDelegate
 
         isProfile = false;
         selectedStory = null;
-        isCreate = false;
+        if (isLocationPicker) {
+          isLocationPicker = false;
+        } else {
+          isCreate = false;
+        }
         notifyListeners();
 
         return true;

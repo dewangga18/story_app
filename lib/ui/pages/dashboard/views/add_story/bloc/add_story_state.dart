@@ -7,6 +7,8 @@ class AddStoryState extends Equatable {
   final bool isSuccess;
   final XFile? file;
   final String? desc;
+  final LatLng? loc;
+  final String? locText;
 
   const AddStoryState({
     this.isLoading = false,
@@ -15,6 +17,8 @@ class AddStoryState extends Equatable {
     this.isSuccess = false,
     this.file,
     this.desc,
+    this.loc,
+    this.locText,
   });
 
   AddStoryState copywith({
@@ -24,6 +28,8 @@ class AddStoryState extends Equatable {
     bool? isSuccess,
     XFile? file,
     String? desc,
+    LatLng? loc,
+    String? locText,
   }) {
     return AddStoryState(
       isError: isError ?? this.isError,
@@ -32,16 +38,20 @@ class AddStoryState extends Equatable {
       enablePost: enablePost ?? this.enablePost,
       file: file ?? this.file,
       desc: desc ?? this.desc,
+      loc: loc ?? this.loc,
+      locText: locText ?? this.locText,
     );
   }
 
   @override
-  List<Object> get props => [
+  List<Object?> get props => [
         isError,
         isLoading,
         enablePost,
         isSuccess,
-        file?.path ?? '',
-        desc ?? '',
+        file?.path,
+        desc,
+        loc,
+        locText,
       ];
 }
