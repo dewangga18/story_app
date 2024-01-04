@@ -5,6 +5,7 @@ import 'package:story_app/global_bloc/app_bloc.dart';
 import 'package:story_app/styles/styles.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:story_app/ui/pages/dashboard/bloc/dashboard_bloc.dart';
+import 'package:story_app/ui/pages/dashboard/views/add_story/bloc/add_story_bloc.dart';
 import 'package:story_app/ui/pages/dashboard/views/components/item_list.dart';
 import 'package:story_app/ui/pages/dashboard/views/components/item_loading.dart';
 import 'package:story_app/ui/pages/dashboard/views/components/message_dashboard_widget.dart';
@@ -38,18 +39,12 @@ class _DashboardPageState extends State<DashboardPage> {
 
     scrollController.addListener(() {
       if (scrollController.position.pixels >=
-              scrollController.position.maxScrollExtent &&
+              scrollController.position.maxScrollExtent - 10 &&
           showScroll) {
         bloc?.add(LoadmoreEvent());
       }
     });
   }
-
-  // @override
-  // void didChangeDependencies() {
-
-  //   super.didChangeDependencies();
-  // }
 
   @override
   void dispose() {
@@ -60,6 +55,7 @@ class _DashboardPageState extends State<DashboardPage> {
   @override
   Widget build(BuildContext context) {
     bloc ??= context.read<DashboardBloc>();
+    final addBloc = context.read<AddStoryBloc>();
     final local = AppLocalizations.of(context)!;
 
     return Scaffold(
@@ -109,6 +105,9 @@ class _DashboardPageState extends State<DashboardPage> {
                 return true;
               }
               if (previous.list != current.list) {
+                return true;
+              }
+              if (previous.enableScrollMore != current.enableScrollMore) {
                 return true;
               }
               return false;
@@ -182,7 +181,10 @@ class _DashboardPageState extends State<DashboardPage> {
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: secondaryColor,
-        onPressed: widget.goCreate,
+        onPressed: () {
+          addBloc.add(RefreshVariable());
+          widget.goCreate();
+        },
         child: const Icon(
           Icons.add_photo_alternate_outlined,
         ),

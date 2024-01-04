@@ -22,7 +22,7 @@ class _StoryLocationState extends State<StoryLocation> {
   late GoogleMapController mapController;
   late final Set<Marker> markers = {};
   late LatLng location;
-  String text = '-';
+  bool isLoading = true;
 
   @override
   void initState() {
@@ -36,19 +36,21 @@ class _StoryLocationState extends State<StoryLocation> {
     )
         .then((value) {
       final place = value.first;
-      final placeText = '${place.street}, ${place.administrativeArea}';
+      location = LatLng(widget.lat, widget.lon);
+
+      final marker = Marker(
+        markerId: const MarkerId("location"),
+        position: location,
+        infoWindow: InfoWindow(
+          title: '${place.street}, ${place.postalCode}',
+          snippet: '${place.subLocality}, ${place.locality}, ${place.country}',
+        ),
+      );
+      markers.add(marker);
       setState(() {
-        text = placeText;
+        isLoading = false;
       });
     });
-
-    location = LatLng(widget.lat, widget.lon);
-
-    final marker = Marker(
-      markerId: const MarkerId("location"),
-      position: location,
-    );
-    markers.add(marker);
   }
 
   @override
@@ -70,27 +72,24 @@ class _StoryLocationState extends State<StoryLocation> {
             AppLocalizations.of(context)!.storyLocation,
             style: Theme.of(context).textTheme.titleLarge,
           ),
-          Text(
-            text,
-            overflow: TextOverflow.ellipsis,
-            maxLines: 1,
-          ),
           10.verticalSpace,
           Expanded(
             child: Stack(
               children: [
                 Positioned.fill(
-                  child: GoogleMap(
-                    initialCameraPosition: CameraPosition(
-                      zoom: 18,
-                      target: location,
-                    ),
-                    scrollGesturesEnabled: true,
-                    markers: markers,
-                    zoomControlsEnabled: true,
-                    mapToolbarEnabled: true,
-                    myLocationButtonEnabled: true,
-                  ),
+                  child: isLoading
+                      ? const Center(child: CircularProgressIndicator())
+                      : GoogleMap(
+                          initialCameraPosition: CameraPosition(
+                            zoom: 18,
+                            target: location,
+                          ),
+                          scrollGesturesEnabled: true,
+                          markers: markers,
+                          zoomControlsEnabled: true,
+                          mapToolbarEnabled: true,
+                          myLocationButtonEnabled: true,
+                        ),
                 ),
               ],
             ),
